@@ -13,7 +13,7 @@ export default function RootLayout() {
     headerTitle:"About",
   }}
    />
-
+  
   </Stack>
   );
 }
