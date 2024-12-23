@@ -6,8 +6,7 @@ export default function NotFoundScreen() {
   return (
     <>
        <Stack.Screen  options={{
-    // title:"Opps ! Not Found",
-    headerShown:false,
+    title:"Opps ! Not Found",
 }}
   />
       <View style={styles.container}>

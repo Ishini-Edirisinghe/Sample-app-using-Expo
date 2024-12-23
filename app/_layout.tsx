@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import React from "react";
 
 export default function RootLayout() {
   return (
@@ -6,6 +7,7 @@ export default function RootLayout() {
   <Stack.Screen name="index"
   options={{
     headerTitle:"Sticker Smash",
+    headerLeft: () =><></>
   }}
   />
   <Stack.Screen name="about"
