@@ -3,11 +3,17 @@ import React from "react";
 
 export default function TabsLayout() {
   return (
-  <Tabs>
+  <Tabs
+  screenOptions={{
+    tabBarActiveTintColor:"#AA336A",
+  }}
+  
+  >
+
   <Tabs.Screen name="index"
   options={{
     headerTitle:"Sticker Smash",
-    headerLeft: () =><></>
+   
   }}
   />
   <Tabs.Screen name="about"
