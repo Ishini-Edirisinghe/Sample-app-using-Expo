@@ -12,7 +12,8 @@ export default function Index() {
       </View>
 
       <View style={styles.footerContainer}>
-        <Button label="Choose a photo" />
+        <Button label="Choose a photo" theme="primary" />
+
         <Button label="Use this photo" />
       </View>
     </View>
@@ -28,9 +29,10 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
   },
+  // add styles to footer container
   footerContainer: {
-    flex: 1/6,
+    flex: 1/3,
     alignItems: "center",
-    backgroundColor:"gray",
+    
   },
 });
