@@ -14,6 +14,8 @@ export default function Index() {
     undefined
   );
 
+  const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -22,6 +24,7 @@ export default function Index() {
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
+      setShowAppOptions(true);
       console.log(result);
     } else {
       alert('You did not select any image.');
@@ -35,12 +38,19 @@ export default function Index() {
         <ImageViewer imgSource={selectedImage || PlaceholderImage} />
       </View>
 
+      {showAppOptions ? (
+        <View />
+      ) : (
+
       <View style={styles.footerContainer}>
         <Button onPress={pickImageAsync}
         label="Choose a photo" theme="primary" />
 
-        <Button label="Use this photo" />
+        <Button label="Use this photo"
+        onPress={() =>  setShowAppOptions(true)} />
       </View>
+  )}
+
     </View>
   );
 }
