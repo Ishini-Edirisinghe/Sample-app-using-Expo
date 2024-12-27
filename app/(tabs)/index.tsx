@@ -64,25 +64,6 @@ export default function Index() {
     setIsModalVisible(false);
   };
 
-  // const onSaveImageAsync = async () => {
-  //   try {
-  //     if (imageRef.current) {
-  //       const localUri = await captureRef(imageRef.current, {
-  //         height: 440,
-  //         quality: 1,
-  //       });
-  //       await MediaLibrary.saveToLibraryAsync(localUri);
-  //       if (localUri) {
-  //         alert('Saved!');
-  //       }
-  //     } else {
-  //       console.error("imageRef is not set");
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  
 
   const onSaveImageAsync = async () => {
     if (Platform.OS !== 'web') {
