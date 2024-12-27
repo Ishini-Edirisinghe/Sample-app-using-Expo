@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet ,Platform } from "react-native";
 import ImageViewer from "@/components/ImageViewer";
 import Button from "@/components/Button";
 import * as ImagePicker from "expo-image-picker";
@@ -13,6 +13,8 @@ import EmojiSticker from "@/components/EmojiSticker";
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import domtoimage from 'dom-to-image';
+
 
 const PlaceholderImage = require("../../assets/images/background-image.png");
 
@@ -62,27 +64,59 @@ export default function Index() {
     setIsModalVisible(false);
   };
 
+  // const onSaveImageAsync = async () => {
+  //   try {
+  //     if (imageRef.current) {
+  //       const localUri = await captureRef(imageRef.current, {
+  //         height: 440,
+  //         quality: 1,
+  //       });
+  //       await MediaLibrary.saveToLibraryAsync(localUri);
+  //       if (localUri) {
+  //         alert('Saved!');
+  //       }
+  //     } else {
+  //       console.error("imageRef is not set");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  
+
   const onSaveImageAsync = async () => {
-    try {
-      if (imageRef.current) {
-        const localUri = await captureRef(imageRef.current, {
+    if (Platform.OS !== 'web') {
+      try {
+        const localUri = await captureRef(imageRef, {
           height: 440,
           quality: 1,
         });
+
         await MediaLibrary.saveToLibraryAsync(localUri);
         if (localUri) {
           alert('Saved!');
         }
-      } else {
-        console.error("imageRef is not set");
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      try {
+        // @ts-ignore
+        const dataUrl = await domtoimage.toJpeg(imageRef.current, {
+          quality: 0.95,
+          width: 320,
+          height: 440,
+        });
+
+        let link = document.createElement('a');
+        link.download = 'sticker-smash.jpeg';
+        link.href = dataUrl;
+        link.click();
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
-  
-
-
   return (
     
     <View style={styles.container}>
