@@ -1,47 +1,49 @@
-import { Tabs } from "expo-router";
 import React from "react";
-import {Ionicons} from '@expo/vector-icons';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Index from ".";
+import AboutScreen from "./about";
 
-export default function TabsLayout() {
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+function TabNavigator() {
   return (
-  <Tabs
-  screenOptions={{
-    tabBarActiveTintColor:"#AA336A",
-    headerStyle : {
-      backgroundColor: "#AA336A",
-    },
-    headerShadowVisible:false,
-    headerTintColor:"#fff",
-    tabBarStyle :{
-      backgroundColor :"#FFFFFF",
-    }
-  }}
-  
-  >
-
-  <Tabs.Screen name="index"
-  options={{
-    headerTitle:"Sticker Smash",
-   tabBarIcon:({focused,color}) => 
-   <Ionicons name={focused ? "home-sharp" : "home-outline"} 
-   color={color}
-   size={25}/>,
-  }}
-  />
-  <Tabs.Screen name="about"
-   options={{
-    headerTitle:"About",
-    tabBarIcon:({focused,color}) => 
-      <Ionicons name={focused ? "information-circle" : "information-circle-outline"} 
-      color={color}
-      size={24}/>,
-  }}
-   />
-  
-
-  <Tabs.Screen name="+not-found"
-    options={{}}
-    /> 
-  </Tabs>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "#AA336A",
+        headerStyle: { backgroundColor: "#AA336A" },
+        headerTintColor: "#fff",
+        tabBarStyle: { backgroundColor: "#FFFFFF" },
+      }}
+    >
+      <Tab.Screen name="Home" component={Index} />
+      <Tab.Screen name="About" component={AboutScreen} />
+    </Tab.Navigator>
   );
+}
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        drawerActiveTintColor: "#AA336A",
+        drawerStyle: { backgroundColor: "#f9f9f9" },
+        headerStyle: { backgroundColor: "#AA336A" },
+        headerTintColor: "#fff",
+        drawerLabelStyle: { fontSize: 16 },
+      }}
+    >
+      {/* Include both Index and AboutScreen in the Drawer */}
+      <Drawer.Screen name="Home" component={Index} />
+      <Drawer.Screen name="About" component={AboutScreen} />
+      
+      {/* Include TabNavigator in the Drawer */}
+      <Drawer.Screen name="Tabs" component={TabNavigator} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function App() {
+  return <DrawerNavigator />;
 }
